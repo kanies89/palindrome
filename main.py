@@ -14,8 +14,8 @@ palindrome_test = [
 
 def is_palindrome(data):
     # data type check
-    assert type(data[0]) != str(), \
-        f'Wrong data type - {data[1]}'
+    assert type(data[0]) == str, \
+        f'Wrong data type, provided {data[0]} - {data[1]}'
     assert data[0].isalpha(), \
         f'Expected word, got - {data[0]} - {data[1]}'
     assert len(data[0]) > 2, \
