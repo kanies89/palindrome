@@ -16,35 +16,32 @@ palindrome_test = [
 def is_palindrome(data):
     number = False
     i = 0
+    # data type check
     if type(data) != str:
-        print(False)
+        return False
     else:
         for sign in data:
             try:
+                # if int in string check
                 int(sign)
                 number = True
                 i += 1
 
             except ValueError:
-                try:
-                    float(sign)
-                    number = True
-                    i += 1
-
-                except ValueError:
-                    i += 1
-                    pass
+                i += 1
+                pass
 
         if number == True and i == len(data):
-            print(False)
+            return False
         elif number == False and i == len(data):
+            # palindrome check
             if data.upper() == data.upper()[::-1] and len(data) > 2:
-                print(True)
+                return True
             else:
-                print(False)
+                return False
 
 
 if __name__ == "__main__":
 
     for data in palindrome_test:
-        is_palindrome(data)
+        print(is_palindrome(data))
