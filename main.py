@@ -1,44 +1,29 @@
 import datetime
 
 palindrome_test = [
-    'kajak',
-    'wielbłąd',
-    'Kajak',
-    '0kajak0',
-    [0, "k", 7, 3],
-    datetime.date.today(),
-    7,
-    7.002
-
-]
+    ('kajak', True),
+    ('wielbłąd', False),
+    ('Kajak', True),
+    ('0kajak0', ValueError),
+    ([0, "k", 7, 3], ValueError),
+    (datetime.date.today(), ValueError),
+    (7, ValueError),
+    (7.002, ValueError)
+    ]
 
 
 def is_palindrome(data):
-    number = False
-    i = 0
     # data type check
-    if type(data) != str:
-        return False
+    assert type(data[0]) != str(), \
+        f'Wrong data type - {data[1]}'
+    assert data[0].isalpha(), \
+        f'Expected word, got - {data[0]} - {data[1]}'
+    assert len(data[0]) > 2, \
+        f'String too short - {data[1]}'
+    if data[0].upper() == data[0].upper()[::-1]:
+        return data[1]
     else:
-        for sign in data:
-            try:
-                # if int in string check
-                int(sign)
-                number = True
-                i += 1
-
-            except ValueError:
-                i += 1
-                pass
-
-        if number == True and i == len(data):
-            return False
-        elif number == False and i == len(data):
-            # palindrome check
-            if data.upper() == data.upper()[::-1] and len(data) > 2:
-                return True
-            else:
-                return False
+        return data[1]
 
 
 if __name__ == "__main__":
