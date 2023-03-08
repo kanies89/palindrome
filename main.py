@@ -4,29 +4,36 @@ palindrome_test = [
     ('kajak', True),
     ('wielbłąd', False),
     ('Kajak', True),
-    ('0kajak0', ValueError),
-    ([0, "k", 7, 3], ValueError),
-    (datetime.date.today(), ValueError),
-    (7, ValueError),
-    (7.002, ValueError)
-    ]
+    ('0kajak0', False),
+    ([0, "k", 7, 3], False),
+    (datetime.date.today(), False),
+    (7, False),
+    (7.002, False)
+]
 
 
 def is_palindrome(data):
     # data type check
-    assert type(data[0]) == str, \
-        f'Wrong data type, provided {data[0]} - {data[1]}'
-    assert data[0].isalpha(), \
-        f'Expected word, got - {data[0]} - {data[1]}'
-    assert len(data[0]) > 2, \
-        f'String too short - {data[1]}'
+    if not isinstance(data[0], str):
+        raise ValueError(f'Wrong data type, provided {data[0]} - {data[1]}')
+    if not data[0].isalpha():
+        raise ValueError(f'Expected word, got - {data[0]} - {data[1]}')
+    if not len(data[0]) > 2:
+        raise ValueError(f'String too short, need to be at least 3 letters - {data[1]}')
     if data[0].upper() == data[0].upper()[::-1]:
         return data[1]
     else:
         return data[1]
 
 
-if __name__ == "__main__":
+def test_palindrome():
+    try:
+        for x in palindrome_test:
+            is_palindrome(x)
+        assert False, "ValueError expected"
+    except ValueError:
+        pass
 
-    for data in palindrome_test:
-        print(is_palindrome(data))
+
+if __name__ == "__main__":
+    test_palindrome()
